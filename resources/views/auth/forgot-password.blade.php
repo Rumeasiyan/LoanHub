@@ -12,6 +12,25 @@
         <p class="text-gray-700 mb-4">Please enter your email address to receive a password reset link.</p>
         <form method="POST" action="{{ route('password.email') }}">
         @csrf
+
+        @if ($errors->has('email'))
+
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <ul>
+                    @if ($errors->has('email'))
+                        <li><span class="block sm:inline">{{$errors->first('email')}}</span></li>
+                    @endif
+                </ul>
+            </div>
+
+        @endif
+
+        @if (session('status'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{session('status')}}</span>
+            </div>
+        @endif
+
             <div class="mb-4">
                 <label for="email" class="block text-gray-700 font-medium">Email</label>
                 <input type="email" id="email" name="email" value="{{old('email')}}" placeholder="Email" class="p-2 mt-1 block w-full bg-gray-200 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-300">
